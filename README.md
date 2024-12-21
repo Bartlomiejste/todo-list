@@ -135,11 +135,31 @@ The **To-Do List Application** is a Laravel-based project that allows users to m
    - Save it as `storage/app/google-calendar/service-account-credentials.json`.
    - Update the `GOOGLE_CALENDAR_ID` in `.env` with the calendar ID.
 
-8. **Start the Application:**
+8. **Configure the Database:**
+    Make sure you have a MySQL server running and create a database:
+    ```bash
+    CREATE DATABASE todo-list CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    ```
+    
+    Configure database credentials in the .env file:
+    ```bash
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=todo-list
+    DB_USERNAME=your_database_user
+    DB_PASSWORD=your_database_password
+    ```
+
+   Run the database migrations to create tables:
+    ```bash
+    php artisan migrate
+    ```
+
+9. **Start the Application:**
    ```bash
    php artisan serve
    ```
-
 ---
 
 ## Usage
