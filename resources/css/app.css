@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.table-bordered+.table-bordered {
+    margin-top: 2rem;
+}
