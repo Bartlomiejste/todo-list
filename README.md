@@ -184,41 +184,47 @@ The **To-Do List Application** is a Laravel-based project that allows users to m
 Testing Email Notifications
 The application provides automated email reminders for tasks that are due the next day. To test this feature, follow the steps below:
 
-1. Configure Email Settings
-Make sure the .env file is properly configured with your SMTP server details. For example:
+1. Configure Email Settings:
 
-```bash
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.example.com (in this application smtp.sendgrid.net)
-MAIL_PORT=587
-MAIL_USERNAME=your-email@example.com 
-MAIL_PASSWORD=your-email-password
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=your-email@example.com
-MAIL_FROM_NAME="Todo-List App"
-```
+    - Make sure the .env file is properly configured with your SMTP server details. For example:
 
-2. Create a User
-Log in or register a user in the application and ensure the user’s email address is valid.
+    ```bash
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.example.com (in this application smtp.sendgrid.net)
+    MAIL_PORT=587
+    MAIL_USERNAME=your-email@example.com 
+    MAIL_PASSWORD=your-email-password
+    MAIL_ENCRYPTION=tls
+    MAIL_FROM_ADDRESS=your-email@example.com
+    MAIL_FROM_NAME="Todo-List App"
+    ```
 
-3. Add a New Task
-Create a new task with a due date set for the next day:
-Example Task Name: Meeting Reminder
-Due Date: Tomorrow’s Date
-Ensure the task is saved successfully.
+3. Create a User:
+   
+    - Log in or register a user in the application and ensure the user’s email address is valid.
 
-5. Trigger the Reminder
-To trigger email notifications for tasks, run the following command in your terminal:
+4. Add a New Task:
+   
+    **Create a new task with a due date set for the next day:**
+    - Example Task Name: Meeting Reminder
+    - Due Date: Tomorrow’s Date
+    - Ensure the task is saved successfully.
 
-```bash
-php artisan tasks:send-reminders
-```
+5. Trigger the Reminder:
+   
+    - To trigger email notifications for tasks, run the following command in your terminal:
 
-5. Check Your Email
-Check the inbox of the email address you used during user registration.
-You should receive an email reminder for the task.
-Additional Notes
-If you don’t receive the email, ensure your SMTP settings in the .env file are correct.
+    ```bash
+    php artisan tasks:send-reminders
+    ```
+
+6. Check Your Email:
+   
+    - Check the inbox of the email address you used during user registration.
+    - You should receive an email reminder for the task.
+      
+    **Additional Notes**
+     - If you don’t receive the email, ensure your SMTP settings in the .env file are correct.
 
 ---
 
