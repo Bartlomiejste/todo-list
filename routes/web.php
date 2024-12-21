@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TaskHistoryController;
 
 Route::get('/register', function () {
     return view('auth.register');
@@ -24,17 +23,11 @@ Route::middleware('auth')->group(function () {
         return redirect('/tasks');
     });
     Route::resource('tasks', TaskController::class);
-});
 
-Route::middleware('auth')->group(function () {
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 });
 
-
-Route::get('tasks/{task}/history', [TaskController::class, 'history'])->name('tasks.history');
-
+Route::get('/tasks/{task}/history', [TaskController::class, 'history'])->name('tasks.history');
 Route::post('/tasks/{task}/generate-link', [TaskController::class, 'generateLink'])->name('tasks.generateLink');
 Route::get('/tasks/public/{task}', [TaskController::class, 'viewPublicTask'])->name('tasks.public');
-
-
 Route::post('/tasks/{task}/sync-google-calendar', [TaskController::class, 'syncWithGoogleCalendar'])->name('tasks.syncGoogleCalendar');

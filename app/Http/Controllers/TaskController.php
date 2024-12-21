@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskUpdateRequest;
 use App\Models\Task;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Spatie\GoogleCalendar\Event;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $query = auth()->user()->tasks();
     
@@ -33,22 +32,13 @@ class TaskController extends Controller
     
         return view('tasks.index', compact('tasks'));
     }
-    
-    
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): View
     {
         return view('tasks.create');
     }
-    
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -62,38 +52,22 @@ class TaskController extends Controller
     
         return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
-    
-    
-    /**
-     * Display the specified resource.
-     */
-    public function show(Task $task)
+
+    public function show(Task $task): View
     {
         $this->authorize('view', $task);
     
         return view('tasks.show', compact('task'));
     }
-    
-    
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Task $task)
+    public function edit(Task $task): View
     {
         $this->authorize('update', $task);
     
         return view('tasks.edit', compact('task'));
     }
     
-    
-    
-    
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(TaskUpdateRequest $request, Task $task)
+    public function update(TaskUpdateRequest $request, Task $task): RedirectResponse
     {
         $this->authorize('update', $task);
     
@@ -121,12 +95,7 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
     
-    
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Task $task)
+    public function destroy(Task $task): RedirectResponse
     {
         $this->authorize('delete', $task);
     
@@ -145,9 +114,8 @@ class TaskController extends Controller
     
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
-    
 
-    public function history(Task $task)
+    public function history(Task $task): View
     {
     $this->authorize('view', $task);
 
@@ -156,7 +124,7 @@ class TaskController extends Controller
     return view('tasks.history', compact('task', 'history'));
     }
 
-    public function generateLink(Task $task)
+    public function generateLink(Task $task): RedirectResponse
     {
     $this->authorize('update', $task);
 
@@ -165,7 +133,7 @@ class TaskController extends Controller
     return back()->with('success', 'Public link generated successfully.');
     }
 
-    public function viewPublicTask(Task $task, Request $request)
+    public function viewPublicTask(Task $task, Request $request): View
     {
     $token = $request->query('token');
 
@@ -176,8 +144,7 @@ class TaskController extends Controller
     return view('tasks.public', compact('task'));
     } 
 
-
-    public function syncWithGoogleCalendar(Task $task)
+    public function syncWithGoogleCalendar(Task $task): RedirectResponse
     {
         $this->authorize('update', $task);
     
@@ -204,8 +171,4 @@ class TaskController extends Controller
             return back()->with('error', 'Failed to add task to Google Calendar: ' . $e->getMessage());
         }
     }
-   
-    
-    
-
 }
